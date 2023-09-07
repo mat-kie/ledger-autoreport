@@ -14,7 +14,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2
       with:
         image: ledger-autoreport
-        tags: v1 ${{ github.sha }}
+        tags: v1 ${{ github.sha }} latest
         containerfiles: |
           ./provisioning/Containerfile
     - name: Push To ghcr.io
@@ -22,7 +22,7 @@ jobs:
       uses: redhat-actions/push-to-registry@v2
       with:
         image: ${{ steps.build-image.outputs.image }}
-        tags: v1 ${{ github.sha }}
+        tags: v1 ${{ github.sha }} latest
         registry: ghcr.io/${{ github.repository_owner }}
         username: ${{ github.actor }}
         password: ${{ github.token }}
