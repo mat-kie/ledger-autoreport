@@ -1,1 +1,1 @@
-podman build -f ./provisioning/Dockerfile . --tag finance/autoreport
+podman build -f ./provisioning/Dockerfile . --tag ledger-autoreport

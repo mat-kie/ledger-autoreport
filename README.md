@@ -33,6 +33,6 @@ balance.tex; bal; -f; jourLedgerJournalFile.ledger;-E; Spendings
 to run the container in interactive mode:
 
 ~~~bash
-podman run --rm -it --volume "$(pwd):/data" --userns keep-id --user $(id -u):$(id -g) finance/autoreport 
+podman run --rm -it --volume "$(pwd):/data" --userns keep-id --user $(id -u):$(id -g) ledger-autoreport 
 ~~~
 **Note:** The current working directory is mounted to /data inside the container. The ledger-tools folder is copied to /ledger-tools inside the container during the build step for the container.
