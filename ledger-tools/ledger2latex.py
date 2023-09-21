@@ -50,7 +50,7 @@ class BalanceParser:
             capture_output=True,
             encoding='utf-8')
         assert ledger_process.returncode == 0, f"the ledger command failed: stdout: {ledger_process.stdout}, stderr:{ledger_process.stderr}"
-        with open(self.out_file, "w") as f:
+        with open(self.out_file, "w+") as f:
             f.write(self.parse(ledger_process.stdout))
 
 
@@ -150,7 +150,7 @@ class RegisterParser:
             capture_output=True,
             encoding='utf-8')
         assert ledger_process.returncode == 0, f"the ledger command failed: stdout: {ledger_process.stdout}, stderr:{ledger_process.stderr}"
-        with open(self.out_file, "w") as f:
+        with open(self.out_file, "w+") as f:
             f.write(self.parse(ledger_process.stdout))
 
 
