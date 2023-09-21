@@ -19,12 +19,7 @@ class BalanceParser:
     def __init__(self, out_file, args: list[str]):
         self.args = args
         self.out_file = out_file
-        self.header = """
-\\renewcommand{\\labelitemi}{}
-\\renewcommand{\\labelitemii}{}
-\\renewcommand{\\labelitemiii}{}
-\\renewcommand{\\labelitemiv}{}
-"""
+        self.header = ""
         self.footer = "\n"
 
     def parseAccountString(text: str):
@@ -37,25 +32,16 @@ class BalanceParser:
             if "--------------------" == line.rstrip():
                 break
             entries.append(BalanceEntry(line))
-        current_indent = 0
-        add_indent_cmd = "\\begin{itemize}\n"
-        end_indent_cmd = "\\end{itemize}\n"
-        out = add_indent_cmd
+        out = ""
         for entry in entries:
-            while entry.indent_level > current_indent:
-                out += add_indent_cmd
-                current_indent += 1
-            while entry.indent_level < current_indent:
-                out += end_indent_cmd
-                current_indent -= 1
+            out +="- "
+            for i in range(0,entry.indent_level):
+                out += "\\quad "
             color = " \\color{black}"
             if "-" in entry.amount:
                 color = " \\color{red}"
-            out += f"\\item {entry.account} \\hfill {color} {entry.amount} \\color{{black}} \n"
-        while 0 < current_indent:
-            out += end_indent_cmd
-            current_indent -= 1
-        out += end_indent_cmd
+            out += f"{entry.account} \\hfill {color} {entry.amount} \\color{{black}} \\newline\n"
+            
         return out
 
     def execute(self):
